@@ -1,0 +1,107 @@
+    <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>绿色农品直供站 - 点击直达微信小程序</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            /* 自定义抖音风格的加载动画 */
+            .loading-mask {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: #000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+            .loading-circle {
+                width: 60px;
+                height: 60px;
+                border: 5px solid rgba(255, 255, 255, 0.3);
+                border-top-color: #ff4757;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+        </style>
+    </head>
+    <body class="bg-gray-100 font-sans">
+        <div class="loading-mask" id="loadingMask">
+            <div class="loading-circle"></div>
+        </div>
+
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex flex-col items-center justify-center text-center">
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">产地直供·新鲜到家</h1>
+                <p class="text-lg text-gray-600 mb-8">精选当季优质农产品，扫码或点击下方按钮直达微信小程序选购</p>
+
+                <div class="w-full max-w-md">
+                    <img src="https://picsum.photos/600/400?random=1" alt="农产品展示" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
+                </div>
+
+                <div class="flex flex-col items-center">
+                    <div class="bg-white rounded-lg p-6 shadow-md mb-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-2">爆款推荐：山东烟台红富士</h2>
+                        <p class="text-gray-600 mb-4">当季现摘·脆甜多汁·坏果包赔</p>
+                        <div class="flex items-center justify-center">
+                            <span class="text-2xl font-bold text-green-600">¥19.9/5斤</span>
+                        </div>
+                    </div>
+
+                    <button 
+                        class="w-full max-w-sm bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-transform hover:scale-105 focus:outline-none focus:shadow-outline"
+                        id="jumpButton"
+                    >
+                        <i class="fas fa-shopping-cart mr-2"></i> 立即选购（跳转微信小程序）
+                    </button>
+
+                    <p class="text-sm text-gray-500 mt-4">
+                        温馨提示：点击按钮后，请在微信中打开链接完成选购<br>
+                        或长按下方二维码识别进入小程序
+                    </p>
+
+                    <div class="mt-6">
+                        <img src="https://via.placeholder.com/300x300.png?text=微信小程序二维码" alt="微信小程序二维码" class="w-48 h-48 object-cover rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
+        <script>
+            // 模拟加载过程
+            window.addEventListener('load', () => {
+                const loadingMask = document.getElementById('loadingMask');
+                setTimeout(() => {
+                    loadingMask.style.display = 'none';
+                }, 1500);
+            });
+
+            // 跳转按钮点击事件
+            document.getElementById('jumpButton').addEventListener('click', () => {
+                // 这里替换成你的微信小程序链接
+                const miniprogramUrl = 'weixin://dl/business/?t=xxx'; // 示例链接，需替换为实际跳转地址
+                
+                // 抖音内打开微信需要引导用户复制链接
+                const tempInput = document.createElement('input');
+                tempInput.value = miniprogramUrl;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                tempInput.remove();
+
+                alert('已复制小程序链接，请打开微信粘贴到聊天窗口或浏览器访问');
+                // 如需直接跳转，需使用抖音支持的跳转协议（需提前申请白名单）
+                // window.location.href = miniprogramUrl;
+            });
+        </script>
+    </body>
+    </html>
+    
